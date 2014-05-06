@@ -5,40 +5,45 @@ SAMI(Synchronized Accessible Media Interchange) parser for Action Script
 Installation
 ------------
 ```
-'as-sami.as' import in your project
+'SAMIParser.as' import in your project
 ```
 Usage
 -----
 ```
 // initialize SAMIParser
-private var SAMIParser:SAMI = new SAMI();
+private var sp:SAMIParser = new SAMIParser();
 // OR
-private var SAMIParser:SAMI = new SAMI("SAMI Content");
+private var sp:SAMIParser = new SAMIParser("SAMI Content");
 ```
 
 ```
-// set SAMI for URL
-SAMIParser.SAMILoader([URL:URLRequest]);
+// load SAMI for URL
+sp.SAMILoader([URL:URLRequest]);
 ```
 
 ```
 // set SAMI for content
-SAMIParser.SetSAMI([Source:String]);
+sp.SetSAMI([Source:String]);
 ```
 
 ```
 // get sync content; return to HTML format
-SAMIParser.GetSYNC_Content([Index:int]); 
+sp.GetSYNC_Content([Index:int]); 
 ```
 
 ```
 // get sync time
-SAMIParser.GetSYNC_Time([Index:int]);
+sp.GetSYNC_Time([Index:int]);
+```
+
+```
+// get sync length
+sp.GetSYNC_Length();
 ```
 
 Example
 -----
 ```
-var myStr:String = SAMIParser.GetSYNC_Content(0);
-myRichEditableText.textFlow = TextConverter.importToFlow(myStr, TextConverter.TEXT_FIELD_HTML_FORMAT);
+var myStr:String = sp.GetSYNC_Content(0);
+myRichText.textFlow = TextConverter.importToFlow(myStr, TextConverter.TEXT_FIELD_HTML_FORMAT);
 ```

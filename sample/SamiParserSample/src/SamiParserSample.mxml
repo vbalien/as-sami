@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   width="200" height="148" initialize="init(event)">
+	<fx:Script>
+		<![CDATA[
+			import flashx.textLayout.conversion.TextConverter;
+			
+			import mx.events.FlexEvent;
+			private var sp:SAMIParser = new SAMIParser();
+			private var index:int = 0;
+			
+			protected function init(event:FlexEvent):void
+			{
+				sp.SAMILoader(new URLRequest("http://ts.daumcdn.net/custom/blog/90/906988/skin/images/test.smi"));
+			}
+			
+			protected function btnPrev_clickHandler(event:MouseEvent):void
+			{
+				if(index > 0)
+					--index;
+				setText(sp.GetSYNC_Content(index),
+					sp.GetSYNC_Time(index));
+			}
+			
+			protected function btnNext_clickHandler(event:MouseEvent):void
+			{
+				if(index < (sp.GetSYNC_Length()-1))
+					++index;
+				setText(sp.GetSYNC_Content(index),
+							sp.GetSYNC_Time(index));
+			}
+			
+			private function setText(content:String, time:int):void
+			{
+				rtContent.textFlow = TextConverter.importToFlow(content, TextConverter.TEXT_FIELD_HTML_FORMAT);
+				labTime.text = "Time : "+time.toString();
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Label id="labTime" x="10" y="56" text="Time : "/>
+	<s:Button id="btnPrev" x="27" y="15" label="Prev" click="btnPrev_clickHandler(event)"/>
+	<s:Button id="btnNext" x="105" y="15" label="Next" click="btnNext_clickHandler(event)"/>
+	<s:RichText id="rtContent" x="0" y="76" width="100%" height="63" fontWeight="bold" text="Content"
+				textAlign="center" verticalAlign="middle"/>
+</s:Application>

@@ -11,13 +11,15 @@ package
 	import flash.events.Event;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
+	
+	import mx.controls.Alert;
 
-	public class SAMI
+	public class SAMIParser
 	{
 		private var SyncArray:Array = new Array();
 		private var SyncTimeArray:Array = new Array();
 		
-		public function SAMI(data:String = '')
+		public function SAMIParser(data:String = '')
 		{
 			var Source:String = data;
 			SyncTimeArray = Parser(Source,"<SYNC Start=",">");
@@ -92,6 +94,11 @@ package
 		public function GetSYNC_Time(Index:int):int
 		{
 			return SyncTimeArray[Index];
+		}
+		
+		public function GetSYNC_Length():int
+		{
+			return SyncArray.length;
 		}
 		
 		private function ColorReplace(Str:String):String
