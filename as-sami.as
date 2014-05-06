@@ -1,5 +1,5 @@
 /*
-* SAMI Perser
+* SAMI Parser
 * 
 * Copyright (c) 2013 엘련(vbalien@live.jp), http://www.alien.pe.kr
 * Licensed under the MIT License:
@@ -20,8 +20,8 @@ package
 		public function SAMI(data:String = '')
 		{
 			var Source:String = data;
-			SyncTimeArray = Perser(Source,"<SYNC Start=",">");
-			SyncArray = Perser(Source,"><P Class=","<SYNC ");
+			SyncTimeArray = Parser(Source,"<SYNC Start=",">");
+			SyncArray = Parser(Source,"><P Class=","<SYNC ");
 		}
 		
 		public function SAMILoader(URL:URLRequest):void
@@ -34,18 +34,18 @@ package
 		public function SetSAMI(data:String):void
 		{
 			var Source:String = data;
-			SyncTimeArray = Perser(Source,"<SYNC Start=",">");
-			SyncArray = Perser(Source,"><P Class=","<SYNC ");
+			SyncTimeArray = Parser(Source,"<SYNC Start=",">");
+			SyncArray = Parser(Source,"><P Class=","<SYNC ");
 		}
 		
 		private function SamiLoadComplete(e:Event):void
 		{
 			var Source:String = e.target.data;
-			SyncTimeArray = Perser(Source,"<SYNC Start=",">");
-			SyncArray = Perser(Source,"><P Class=","<SYNC ");
+			SyncTimeArray = Parser(Source,"<SYNC Start=",">");
+			SyncArray = Parser(Source,"><P Class=","<SYNC ");
 		}
 		
-		private function Perser(Str:String,Start:String,End:String):Array
+		private function Parser(Str:String,Start:String,End:String):Array
 		{
 			var Source:String = Str;
 			var Count:int = 0;
@@ -63,7 +63,7 @@ package
 		{
 			var SYNC:String = "<P Class="+SyncArray[Index];
 			
-			var LowArray:Array = Perser(SYNC,"<",">");
+			var LowArray:Array = Parser(SYNC,"<",">");
 			var RepString:String;
 			for(var i:int = 0;LowArray.length > i;i++){
 				var LowString:String = String(LowArray[i]).toLowerCase();
@@ -79,7 +79,7 @@ package
 				
 			}
 			
-			var ModArray:Array = Perser(SYNC,"<font","<");
+			var ModArray:Array = Parser(SYNC,"<font","<");
 			for(i = 0;ModArray.length > i;i++){
 				if(String(ModArray[i]).toLowerCase().indexOf("</font>") == -1){
 					SYNC = SYNC.replace(ModArray[i] ,ModArray[i]+"</font>");
