@@ -59,11 +59,11 @@ package
 			return ReArray;
 		}
 		
-		public function GetSYNC(Index:int):String
+		public function GetSYNC_Content(Index:int):String
 		{
-			var SYNC:String = "<P Class="+SyncArray[Index];
+			var Content:String = "<P Class="+SyncArray[Index];
 			
-			var LowArray:Array = Parser(SYNC,"<",">");
+			var LowArray:Array = Parser(Content,"<",">");
 			var RepString:String;
 			for(var i:int = 0;LowArray.length > i;i++){
 				var LowString:String = String(LowArray[i]).toLowerCase();
@@ -75,18 +75,18 @@ package
 					RepString = String(LowArray[i]).toLowerCase();
 				}
 				
-				SYNC = SYNC.replace(LowArray[i] ,RepString);
+				Content = Content.replace(LowArray[i] ,RepString);
 				
 			}
 			
-			var ModArray:Array = Parser(SYNC,"<font","<");
+			var ModArray:Array = Parser(Content,"<font","<");
 			for(i = 0;ModArray.length > i;i++){
 				if(String(ModArray[i]).toLowerCase().indexOf("</font>") == -1){
-					SYNC = SYNC.replace(ModArray[i] ,ModArray[i]+"</font>");
+					Content = Content.replace(ModArray[i] ,ModArray[i]+"</font>");
 				}
 			}
 			
-			return SYNC;
+			return Content;
 		}
 		
 		public function GetSYNC_Time(Index:int):int
